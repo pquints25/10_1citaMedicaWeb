@@ -1,0 +1,53 @@
+<h2>Lista de Pacientes</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Id</th>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Genero</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each pacientes}}
+        <tr>
+            <td>{{this._nombre}}</td>
+            <td>{{this._apellido}}</td>
+            <td>{{this._id}}</td>
+            <td>{{this._fecha}}</td>
+            <td>{{this._hora}}</td>
+            <td>{{this._genero}}</td>
+            <td>
+                <button onclick="verDetalle('{{this._id}}')">Ver</button>
+                <button onclick="editarPaciente('{{this._id}}')">Editar</button>
+                <button onclick="eliminarPaciente('{{this._id}}')">Eliminar</button>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<script>
+    function verDetalle(id) {
+        window.location.href = `/pacientes/${id}`;
+    }
+
+    function editarPaciente(id) {
+        console.log('Editar paciente:', id);
+    }
+
+    async function eliminarPaciente(id){
+        if(confirm('Esta seguro que desea eliminar el paciente ')){
+            try {
+                await axios.delete(`/paciente/${id}`);
+                alert('Paciente eliminado con exito');
+                location.reload();
+            } catch (error) {
+                alert('Error al eliminar el paciente');
+            }
+        }
+    }
+</script>
