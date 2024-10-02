@@ -1,10 +1,12 @@
-const paciente = require("../service/paciente");
-const { findAll } = require("../service/paciente");
+const { findAll } = require("../service/pacienteService")
 
-const findAllController = (req, res) => {
-    const usuarios = findAll();
+const findAllController =  async (req, res) => {
+    const pacientes = await findAll();
     res.render('pacientes', {
-        paciente
+        pacientes
     });
-    
+}
+
+module.exports = {
+    findAllController
 }
